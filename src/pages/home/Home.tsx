@@ -1,108 +1,57 @@
-import { type Dispatch, type SetStateAction, useState } from 'react';
-import { IoReload } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
-	Card,
-	CardAction,
-	CardContent,
-	CardHeader,
+    Card,
+    CardAction,
+    CardContent,
+    CardHeader,
 } from '@/components/ui/card';
-
-const info = [
-	{ id: 1, name: 'fancyCounter', url: <FancyCounter /> },
-	{ id: 2, name: 'evento' },
-	{ id: 3, name: 'corp-comment' },
-	{ id: 4, name: 'petsoft' },
-	{ id: 5, name: 'rmtdev' },
-	{ id: 6, name: 'trekbag' },
-	{ id: 7, name: 'word-analytics' },
-];
+import AppData from '@/context/AppContext';
 
 function Home() {
-	return (
-		<div className="grid grid-cols-2 p-10 gap-10">
-			{info.map((project) => (
-				<Card key={project.id}>
-					<CardHeader className="flex justify-center items-center overflow-hidden h-full">
-						{project.url}
-					</CardHeader>
-					<CardContent>{project.name}</CardContent>
-					<CardAction className="flex justify-center items-center w-full">
-						<Button>
-							<Link to={`/${project.name}`}>view project</Link>
-						</Button>
-					</CardAction>
-				</Card>
-			))}
-		</div>
-	);
+    const { info } = AppData();
+
+    return (
+        <div className="w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            {/* Fully responsive grid layout */}
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
+                {info?.map((project) => (
+                    <Card 
+                        key={project.id} 
+                        className="overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between border-muted-foreground/10"
+                    >
+                        <div className="w-full flex flex-col">
+                            {/* Massive, full-width iframe container */}
+                            <CardHeader className="p-0 bg-muted/40 aspect-video w-full overflow-hidden border-b relative">
+                                <iframe 
+                                    src={project?.url} 
+                                    title={`Preview of ${project.name}`}
+                                    className="absolute inset-0 w-full h-full border-none pointer-events-none select-none"
+                                    loading="lazy"
+                                />
+                            </CardHeader>
+                            
+                            {/* Project Information */}
+                            <CardContent className="p-6 sm:p-8">
+                                <h3 className="text-2xl font-bold tracking-tight text-foreground capitalize">
+                                    {project.name}
+                                </h3>
+                            </CardContent>
+                        </div>
+
+                        {/* Action Layout */}
+                        <CardAction className="p-6 sm:p-8 pt-0 flex justify-end">
+                            <Button asChild size="lg" className="w-full sm:w-auto font-semibold shadow-sm tracking-wide">
+                                <Link to={`/${project.name}`}>
+                                    View Project
+                                </Link>
+                            </Button>
+                        </CardAction>
+                    </Card>
+                ))}
+            </div>
+        </div>
+    );
 }
 
 export default Home;
-
-function FancyCounter() {
-	const [number, setNumber] = useState(0);
-	const functions: string[] = ['reset', 'decrease', 'increase'];
-	return (
-		<main className="bg-emerald-400 w-full flex justify-center items-center flex-col gap-4">
-			<div className="bg-teal-600 rounded-lg flex flex-col gap-4 items-center shadow-2xl">
-				<div className="capitalize text-2xl font-bold p-6">fancy counter</div>
-				<Btn func={functions[0]} set={setNumber} />
-				<div>{number}</div>
-				<div className="flex border-t border-teal-500 items-center w-full justify-center">
-					{functions.slice(1, 3).map((func: string) => (
-						<Btn key={func} func={func} set={setNumber} />
-					))}
-				</div>
-			</div>
-		</main>
-	);
-}
-
-function Btn({
-	func,
-	set,
-}: {
-	func: string;
-	set: Dispatch<SetStateAction<number>>;
-}) {
-	const actions = {
-		reset: 'reset',
-		dec: 'decrease',
-		inc: 'increase',
-	} as const;
-
-	function handleClick(func: string) {
-		switch (func) {
-			case actions.dec:
-				set((prev) => prev - 1);
-				break;
-			case actions.inc:
-				set((prev) => prev + 1);
-				break;
-			default:
-				set(0);
-		}
-	}
-	return (
-		<div
-			className={`${func === 'decrease' ? 'border-r border-teal-500' : ''} text-white w-full h-full p-6 cursor-pointer flex items-center justify-center text-2xl transition-colors`}
-		>
-			<button
-				type="button"
-				onClick={() => {
-					handleClick(func);
-				}}
-			>
-				{func === 'reset' ? (
-					<IoReload className="text-xl" />
-				) : func === 'decrease' ? (
-					'-'
-				) : (
-					'+'
-				)}
-			</button>
-		</div>
-	);
-}
