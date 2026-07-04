@@ -1,22 +1,8 @@
-import React from 'react';
-import TreckBagData, { TreckBagProvider } from '@/context/treckBagContext';
 import Body from './Body/Body';
 import SideBar from './Body/SideBar';
 import Header from './Header';
 
 function TreckBag() {
-	return (
-		<TreckBagProvider>
-			<TreckBag1 />
-		</TreckBagProvider>
-	);
-}
-
-function TreckBag1() {
-	const { treckBagData } = TreckBagData();
-	React.useEffect(() => {
-		localStorage.setItem('data', JSON.stringify(treckBagData));
-	}, [treckBagData]);
 	return (
 		<div className="min-h-screen bg-slate-50 text-slate-900 antialiased font-sans">
 			<Header />
