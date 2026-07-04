@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
-import Home from './pages/home/Home';
 import AppData from './context/AppContext';
+import Home from './pages/home/Home';
 
 export default function App() {
-	const {info} = AppData()
+	const { info } = AppData();
 	return (
 		<Routes>
 			<Route path="/" element={<Home />}></Route>
@@ -19,3 +19,5 @@ export default function App() {
 		</Routes>
 	);
 }
+
+

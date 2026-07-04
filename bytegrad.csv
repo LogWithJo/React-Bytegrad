@@ -94,7 +94,7 @@
 ? [x], "82","Children Composition (Avoid Prop Drilling pt. 1)","Avoid prop drilling with the children prop.","06:12"
 ? [x], "83","Context API with Custom Hook (Avoid Prop Drilling pt. 2)","Avoid prop drilling with the Context API and a custom hook.","19:40"
 ? [x], "84","The problem with the Context API","The Context API has 1 big downside: no selectors. This means that if anything in the context value changes, all components that use that context value will re-render, even if they don't use the value that changed. This is not good for performance. We can solve this with Zustand or Redux.","03:50"
-? [ ], "85","Zustand (Replace Context API with Zustand)","Learn Zustand, including advanced techniques like using localStorage with Zustand.","29:32"
+? [x], "85","Zustand (Replace Context API with Zustand)","Learn Zustand, including advanced techniques like using localStorage with Zustand.","29:32"
 ? [ ], "86","TypeScript in React","A quick overview of TypeScript in React. Don't worry if you don't understand everything. You will learn it in the next projects.","52:58"
 -- finish Trekbag
 -- starts CorpComment
