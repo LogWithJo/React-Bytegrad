@@ -1,16 +1,18 @@
 import { Button } from '@/components/ui/button';
-import TreckBagData from '@/context/treckBagContext';
-import { ButtonsActions, type treckBagTasks } from '@/types/types';
+import { usetreckBagData } from '@/stores/treckBag.store';
+import { ButtonsActions } from '@/types/types';
 
 function ActionButtons() {
-	const { setTreckBagData } = TreckBagData();
+	const { completeAll, inCompleteAll, removeAll } = usetreckBagData();
 	function handleClick(value: {
-		content: string;
-		func: (
-			setTreckBagData: React.Dispatch<React.SetStateAction<treckBagTasks[]>>,
-		) => void;
+		readonly content: string;
+		readonly func: (data: {
+			removeAll: () => void;
+			completeAll: () => void;
+			inCompleteAll: () => void;
+		}) => void;
 	}) {
-		value.func(setTreckBagData);
+		value.func({ completeAll, inCompleteAll, removeAll });
 	}
 	return (
 		<div className="flex flex-col gap-2 pt-4 border-t border-slate-100">

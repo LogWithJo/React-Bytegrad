@@ -1,3 +1,4 @@
+
 export interface treckBagTasks {
 	id: number;
 	name: string;
@@ -6,7 +7,11 @@ export interface treckBagTasks {
 
 export interface treckBagType {
 	treckBagData: treckBagTasks[];
-	setTreckBagData: React.Dispatch<React.SetStateAction<treckBagTasks[]>>;
+	createNewTask: (name: string) => void;
+	completeAll: () => void;
+	inCompleteAll: () => void;
+	removeAll: () => void;
+	toggleTask: (id: number) => void;
 }
 
 export const SortType = {
@@ -19,29 +24,33 @@ export type SortType = (typeof SortType)[keyof typeof SortType];
 export const ButtonsActions = {
 	complete: {
 		content: 'mark all as complete',
-		func: (
-			setTreckBagData: React.Dispatch<React.SetStateAction<treckBagTasks[]>>,
-		) => {
-			setTreckBagData((prev) =>
-				prev.map((item) => ({ ...item, isPacked: true })),
-			);
+		func: (data: {
+			removeAll: () => void;
+			completeAll: () => void;
+			inCompleteAll: () => void;
+		}) => {
+			data.completeAll();
 		},
 	},
 	inComplete: {
 		content: 'mark all as incomplete',
-		func: (
-			setTreckBagData: React.Dispatch<React.SetStateAction<treckBagTasks[]>>,
-		) => {
-			setTreckBagData((prev) =>
-				prev.map((item) => ({ ...item, isPacked: false })),
-			);
+		func: (data: {
+			removeAll: () => void;
+			completeAll: () => void;
+			inCompleteAll: () => void;
+		}) => {
+			data.inCompleteAll();
 		},
 	},
 	removeAll: {
 		content: 'remove all',
-		func: (
-			setTreckBagData: React.Dispatch<React.SetStateAction<treckBagTasks[]>>,
-		) => setTreckBagData([]),
+		func: (data: {
+			removeAll: () => void;
+			completeAll: () => void;
+			inCompleteAll: () => void;
+		}) => {
+			data.removeAll();
+		},
 	},
 } as const;
 
@@ -52,7 +61,7 @@ export interface CommentType {
 	id: number | string;
 	company: string;
 	badgeLetter: string | number;
-	upvoteCount: {clicked: boolean, count: number};
+	upvoteCount: { clicked: boolean; count: number };
 	daysAgo: number;
 	text: string;
 }
@@ -62,6 +71,6 @@ export interface CommentDataType {
 	categories: string[];
 	selectCategory: string;
 	setSelectCategory: (category: string) => void;
-    toggleLikesCount: (id: number) => void;
-	createNewComment: (text: string, company: string) => void
+	toggleLikesCount: (id: number) => void;
+	createNewComment: (text: string, company: string) => void;
 }

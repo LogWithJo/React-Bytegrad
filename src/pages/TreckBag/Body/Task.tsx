@@ -1,10 +1,10 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Field, FieldLabel } from '@/components/ui/field';
-import TreckBagData from '@/context/treckBagContext';
+import { usetreckBagData } from '@/stores/treckBag.store';
 import type { treckBagTasks } from '@/types/types';
 
 function Task({ task }: { task: treckBagTasks }) {
-	const { setTreckBagData } = TreckBagData();
+	const { toggleTask } = usetreckBagData();
 	return (
 		<Field orientation="horizontal" className="flex items-start gap-3 py-2">
 			<Checkbox
@@ -12,13 +12,7 @@ function Task({ task }: { task: treckBagTasks }) {
 				name={task.name.trim()}
 				checked={task.isPacked}
 				onCheckedChange={() => {
-					setTreckBagData((prev) =>
-						prev.map((item) =>
-							item.name === task.name
-								? { ...item, isPacked: !item.isPacked }
-								: item,
-						),
-					);
+					toggleTask(task.id)
 				}}
 				className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
 			/>

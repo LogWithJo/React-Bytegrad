@@ -1,10 +1,10 @@
 import { Field, FieldGroup } from '@/components/ui/field';
-import TreckBagData from '@/context/treckBagContext';
+import { usetreckBagData } from '@/stores/treckBag.store';
 import { SortType } from '@/types/types';
 import Task from './Task';
 
 function Taskscontainer({ sort }: { sort: SortType }) {
-	const { treckBagData } = TreckBagData();
+	const treckBagData = usetreckBagData((state) => state.treckBagData);
 	const filtered = [...treckBagData].sort((a, b) => {
 		if (sort === SortType.packed) {
 			return Number(b.isPacked) - Number(a.isPacked);

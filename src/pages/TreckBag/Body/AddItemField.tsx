@@ -1,11 +1,10 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import TreckBagData from '@/context/treckBagContext';
-import type { treckBagTasks } from '@/types/types';
+import { usetreckBagData } from '@/stores/treckBag.store';
 
 function AddItemField() {
-	const { treckBagData, setTreckBagData } = TreckBagData();
+	const { treckBagData, createNewTask } = usetreckBagData();
 	const [inputValue, setInputValue] = React.useState('');
 	const handleClick = () => {
 		if (inputValue.trim().length === 0) return;
@@ -13,14 +12,7 @@ function AddItemField() {
 			setInputValue('');
 			return;
 		}
-		setTreckBagData((data) => [
-			...data,
-			createNewTask({
-				id: data.length > 0 ? data[data.length - 1].id + 1 : 1,
-				name: inputValue,
-				isPacked: false,
-			}),
-		]);
+		createNewTask(inputValue);
 		setInputValue('');
 	};
 	return (
@@ -49,15 +41,3 @@ function AddItemField() {
 	);
 }
 export default AddItemField;
-
-function createNewTask(input: {
-	id: number;
-	name: string;
-	isPacked: boolean;
-}): treckBagTasks {
-	return {
-		id: input.id,
-		name: input.name,
-		isPacked: input.isPacked,
-	};
-}
