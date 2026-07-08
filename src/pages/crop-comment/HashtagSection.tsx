@@ -2,7 +2,7 @@ import { Hash } from 'lucide-react';
 import { useCommentsData } from '@/stores/comments.store';
 
 function HashtagSection() {
-	const { comments } = useCommentsData();
+	const { categories, setSelectCategory } = useCommentsData();
 	return (
 		<div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl h-fit">
 			<div className="flex items-center gap-2 mb-4">
@@ -17,13 +17,16 @@ function HashtagSection() {
 			</p>
 
 			<div className="flex flex-wrap gap-2">
-				{comments.map((item) => (
+				{categories.map((item) => (
 					<button
-						key={item.id}
+						onClick={() => {
+							setSelectCategory(item)
+						}}
+						key={item}
 						type="button"
 						className="bg-slate-800 hover:bg-indigo-600/20 hover:text-indigo-400 border border-slate-700/60 hover:border-indigo-500/40 text-slate-300 px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer"
 					>
-						{item.company}
+						{item}
 					</button>
 				))}
 			</div>

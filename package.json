@@ -8,6 +8,7 @@
     "go": "vite",
     "build": "vite build",
     "deploy": "gh-pages -d dist",
+    "predoploy": "npm run build",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
