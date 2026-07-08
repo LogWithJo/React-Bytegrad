@@ -10,7 +10,7 @@ import { AppProvider } from './context/AppContext.tsx';
 
 createRoot(document.getElementById('youssef')!).render(
 	<StrictMode>
-		<ThemeProvider defaultTheme="dark">
+		<ThemeProvider defaultTheme="light">
 			<HashRouter>
 				<AppProvider>
 					<Toaster />

@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "go": "vite",
+    "dev": "vite",
     "build": "vite build",
     "deploy": "gh-pages -d dist",
     "predoploy": "npm run build",
